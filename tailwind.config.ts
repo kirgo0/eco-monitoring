@@ -9,12 +9,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#9bceb9',
-        secondary: '#059669',
+        primary: '#c6e6d6',
+        secondary: '#67c9a5',
         dark: '#4b5563'
       },
+      screens: {
+        'sm': '640px',
+        // => @media (min-width: 640px) { ... }
+
+        'md': '768px',
+        // => @media (min-width: 768px) { ... }
+
+        'lg': '1024px',
+        // => @media (min-width: 1024px) { ... }
+
+        'xl': '1280px',
+        // => @media (min-width: 1280px) { ... }
+
+        '2xl': '1700px',
+        // => @media (min-width: 1700px) { ... }
+      }
     },
   },
   plugins: [],
 }
 export default config
+
+

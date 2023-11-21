@@ -12,6 +12,7 @@ import { PiNewspaperClippingBold } from "react-icons/pi";
 import { ImStatsDots } from "react-icons/im";
 import { TiArrowBackOutline } from "react-icons/ti";
 import Image from 'next/image'
+import { PiUserCircleLight } from "react-icons/pi";
 
 const Navbar = ({ menu, handleMenu }: { menu: boolean, handleMenu: () => void }) => {
     const [scroll, setScroll] = useState(false);
@@ -31,9 +32,9 @@ const Navbar = ({ menu, handleMenu }: { menu: boolean, handleMenu: () => void })
 
     if (!searchOpen) {
         return (
-            <div className={!scroll ? 'sticky z-50 top-0 w-full duration-300 transition-shadow' : 'sticky z-50 top-0 w-full duration-300 transition-shadow border-b-[1px] border-gray-300 shadow-sm backdrop-blur-lg bg-opacity-90 bg-white '}>
+            <div className={!scroll ? 'sticky z-50 top-0 w-full duration-300 transition-shadow bg-white' : 'sticky z-50 top-0 w-full duration-300 transition-shadow border-b-[1px] border-gray-300 shadow-sm backdrop-blur-lg bg-opacity-90 bg-white '}>
                 <div className=' max-w-[1640px] mx-auto'>
-                    <div className='flex items-center px-4 py-3 lg:py-5 text-dark'>
+                    <div className='flex items-center px-4 py-2 sm:py-3 lg:py-4 text-dark'>
                         <div
                             onClick={handleMenu}
                             className='flex lg:hidden'
@@ -55,7 +56,7 @@ const Navbar = ({ menu, handleMenu }: { menu: boolean, handleMenu: () => void })
 
                         <div className='flex flex-auto md:flex-grow-0 justify-end items-center md:mx-3 lg:mx-8 gap-4'>
                             <NavEndOptions handleSearchOpen={handleSearchOpen} />
-                            <Logo />
+                            <UserProfile />
                         </div>
 
                     </div>
@@ -83,15 +84,10 @@ const Navbar = ({ menu, handleMenu }: { menu: boolean, handleMenu: () => void })
 export default Navbar
 
 
-const Logo = () => {
+const UserProfile = () => {
     return (
         <div>
-            <Image
-                src={'/leaves.png'}
-                alt='leaves'
-                width={50}
-                height={50}
-            />
+            <PiUserCircleLight size={50} />
         </div>
     )
 }
@@ -99,7 +95,7 @@ const Logo = () => {
 const NavLinks = () => {
     const pathname = usePathname();
 
-    const inactiveLinkStyles = 'flex items-center gap-2 lg:gap-3 py-2 lg:py-3 px-2 lg:px-3 text-lg lg:text-lg font-semibold ';
+    const inactiveLinkStyles = 'flex items-center  gap-2 lg:gap-3 py-2 lg:py-3 px-2 lg:px-3 text-lg lg:text-lg';
     const activeLinkStyles = ' bg-secondary text-primary duration-300 transition-all ease-in-out rounded-2xl md:scale-110' + ' ' + inactiveLinkStyles;
     const inactiveHoverStyles = ' hover:bg-slate-400 hover:bg-opacity-20 hover:rounded-2xl';
 
@@ -108,24 +104,24 @@ const NavLinks = () => {
             <nav className='w-full lg:w-auto' >
                 <Link className={pathname === '/news' ? activeLinkStyles : inactiveLinkStyles + inactiveHoverStyles} href={'/'}>
                     <div className='hidden lg:flex' ><PiNewspaperClippingBold size={25} /></div>
-                    News
+                    <span className=' relative top-[0.2rem]'>News</span>
                 </Link>
             </nav>
-            <div className='lg:hidden border border-b-gray-200 w-full '></div>
+            <div className='lg:hidden border border-b-black border-opacity-40  w-full '></div>
             <nav className='w-full lg:w-auto' >
                 <Link className={pathname === '/passports' ? activeLinkStyles : inactiveLinkStyles + inactiveHoverStyles} href={'/'}>
                     <div className='hidden lg:flex'><ImStatsDots size={20} /></div>
-                    Passports
+                    <span className=' relative top-[0.2rem]'>Passports</span>
                 </Link>
             </nav>
-            <div className='lg:hidden border border-b-gray-200 w-full '></div>
+            <div className='lg:hidden border border-b-black border-opacity-40  w-full '></div>
             <nav className='w-full lg:w-auto' >
                 <Link className={pathname === '/info' ? activeLinkStyles : inactiveLinkStyles + inactiveHoverStyles} href={'/'}>
                     <div className='hidden lg:flex'><TiArrowBackOutline size={25} /></div>
-                    Learn more
+                    <span className=' relative top-[0.2rem]'>Learn more</span>
                 </Link>
             </nav>
-            <div className='lg:hidden border border-b-gray-200 w-full '></div>
+            <div className='lg:hidden border border-b-black border-opacity-40 w-full '></div>
         </aside>
     )
 }
@@ -136,8 +132,8 @@ const NavEndOptions = ({ handleSearchOpen }: { handleSearchOpen: () => void }) =
             <div className='flex p-2 md:hidden' onClick={handleSearchOpen}>
                 <FaMagnifyingGlass size={22} />
             </div>
-            <div className=' font-semibold bg-dark bg-opacity-80 text-white px-6 py-2 rounded-lg'>
-                LogIn
+            <div className=' bg-dark bg-opacity-80 text-white px-6 py-2 rounded-lg'>
+                <span className=' relative top-[0.08rem]'>Sign In</span>
             </div>
         </div>
     )
@@ -147,23 +143,30 @@ const SearchBar = ({ autofocus }: { autofocus?: boolean }) => {
     const [searchValue, setSearchValue] = useState('');
 
     return (
-        <div className=' flex flex-auto bg-secondary bg-opacity-80 rounded-xl lg:rounded-xl px-5 py-2 lg:py-3 mx-4 lg:mx-6 text-white font-medium'>
+        <div className=' flex flex-auto bg-secondary rounded-[19px] px-5 py-2 lg:py-3 mx-4 lg:mx-6 text-white font-medium shadow-[inset_0px_1px_5px_0px_rgba(0,0,0,0.35)]'>
             <div className='flex flex-auto items-center relative'>
                 <div className='flex flex-auto'>
                     <input
                         autoFocus={autofocus}
                         name="search-bar"
-                        className=' bg-transparent outline-none w-full'
+                        className=' bg-transparent outline-none w-full font-mono'
                         type="text"
                         onChange={(e) => setSearchValue(e.target.value)}
                         placeholder='Search'
 
                     />
                 </div>
-                <div className=' absolute -right-5 -top-3 lg:-top-4 p-2 lg:p-3 bg-gray-500 bg-opacity-90 rounded-lg shadow-lg hover:scale-105 duration-200 transition-transform ease-in-out' >
-                    <HiMiniMagnifyingGlass size={32} />
+                <div className=' absolute -right-6 -top-3 lg:-top-3.5 py-3 lg:py-3.5 px-2 lg:px-2.5 bg-white rounded-[18px] hover:scale-105 duration-200 transition-transform ease-in-out shadow-[0px_3px_10px_0px_rgba(0,0,0,0.35)]' >
+                    <Image
+                        src={'/search.png'}
+                        alt='search'
+                        width={30}
+                        height={35}
+                    />
                 </div>
             </div>
         </div>
     )
 }
+
+

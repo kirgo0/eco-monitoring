@@ -6,7 +6,7 @@ const Home = () => {
         <div className='flex flex-col'>
             <Hero />
             <Services />
-            <div className=' h-[1100px] bg-primary '>Home</div>
+            <div className=' h-[1100px] '>Home</div>
         </div>
     )
 }
