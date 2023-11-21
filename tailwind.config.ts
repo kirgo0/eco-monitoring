@@ -28,7 +28,13 @@ const config: Config = {
 
         '2xl': '1700px',
         // => @media (min-width: 1700px) { ... }
-      }
+
+        //for the grid
+        'bp1': '1436px',
+        'bp2': '1216px',
+        'bp3': '996px'
+      },
+
     },
   },
   plugins: [],

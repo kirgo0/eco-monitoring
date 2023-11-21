@@ -18,8 +18,7 @@ const corbel = localFont({
       style: 'normal'
     }
 
-  ]
-
+  ],
 })
 
 export const metadata: Metadata = {
