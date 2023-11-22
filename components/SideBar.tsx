@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 const SideBar = () => {
     const pathname = usePathname();
-    const inactiveLinkStyles = ' flex justify-between items-center';
+    const inactiveLinkStyles = ' flex justify-between items-center hover:bg-gray-200 hover:rounded-xl py-3 px-3';
     const activeLinkStyles = ' ' + ' ' + inactiveLinkStyles;
 
 
@@ -22,18 +22,24 @@ const SideBar = () => {
                 />
                 <div>Data analysis</div>
             </div>
-            <div className=' flex flex-col gap-8 text-lg'>
+            <div className=' flex flex-col gap-4 text-lg'>
                 <Link href={'/carcinogenic-risk'} className={pathname === '/carcinogenic-risk' ? activeLinkStyles : inactiveLinkStyles}>
-                    <div className='border-b-2 border-[#4e7a54]'>Carcinogenic</div>
-                    <RiArrowDownSLine size={27} className={' -rotate-90 text-[#4e7a54] rounded-full bg-primary'} />
+                    <div className={` relative top-[0.1rem] ${pathname === '/carcinogenic-risk' && 'border-b-2 border-[#4e7a54]'}`}>
+                        Carcinogenic
+                    </div>
+                    <RiArrowDownSLine size={27} className={` ${pathname === '/carcinogenic-risk' && ' text-[#4e7a54] rounded-full bg-primary'} -rotate-90`} />
                 </Link>
                 <Link href={'/non-carcinogenic-risk'} className={pathname === '/non-carcinogenic-risk' ? activeLinkStyles : inactiveLinkStyles}>
-                    <div>Non-carcinogenic</div>
-                    <RiArrowDownSLine size={27} className={' -rotate-90'} />
+                    <div className={` relative top-[0.1rem] ${pathname === '/non-carcinogenic-risk' && 'border-b-2 border-[#4e7a54]'}`}>
+                        Non-carcinogenic
+                    </div>
+                    <RiArrowDownSLine size={27} className={` ${pathname === '/non-carcinogenic-risk' && ' text-[#4e7a54] rounded-full bg-primary'} -rotate-90`} />
                 </Link>
                 <Link href={'/total-non-carcinogenic-risk'} className={pathname === '/total-non-carcinogenic-risk' ? activeLinkStyles : inactiveLinkStyles}>
-                    <div>Total non-carcinogenic</div>
-                    <RiArrowDownSLine size={27} className={' -rotate-90'} />
+                    <div className={` relative top-[0.1rem] ${pathname === '/total-non-carcinogenic-risk' && 'border-b-2 border-[#4e7a54]'}`}>
+                        Total non-carcinogenic
+                    </div>
+                    <RiArrowDownSLine size={27} className={` ${pathname === '/total-non-carcinogenic-risk' && ' text-[#4e7a54] rounded-full bg-primary'} -rotate-90`} />
                 </Link>
             </div>
 

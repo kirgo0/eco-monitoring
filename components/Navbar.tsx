@@ -92,7 +92,7 @@ const NavLinks = () => {
 
     const inactiveLinkStyles = 'flex items-center gap-2 py-2 lg:py-3 px-2 lg:px-2 text-lg lg:text-lg';
     const activeLinkStyles = ' bg-secondary text-primary duration-300 transition-all ease-in-out rounded-2xl md:scale-110' + ' ' + inactiveLinkStyles;
-    const inactiveHoverStyles = ' hover:bg-slate-400 hover:bg-opacity-20 hover:rounded-2xl';
+    const inactiveHoverStyles = ' hover:bg-slate-400 hover:bg-opacity-20 hover:rounded-xl';
 
     return (
         <aside className=' flex flex-auto lg:flex-grow-0 flex-col lg:flex-row gap-2 lg:gap-3 items-start lg:items-center'>
@@ -135,7 +135,7 @@ const NavLinks = () => {
                 </Link>
             </nav>
             <div className='lg:hidden border border-b-black border-opacity-40  w-full '></div>
-            <nav className={` w-full lg:w-auto ${pathname !== '/carcinogenic-risk' ? ' block' : ' hidden'}`} >
+            <nav className={` w-full lg:w-auto ${pathname === '/carcinogenic-risk' || pathname === '/non-carcinogenic-risk' ? ' hidden' : ' block'}`} >
                 <Link className={pathname === '/info' ? activeLinkStyles : inactiveLinkStyles + inactiveHoverStyles} href={'/carcinogenic-risk'}>
                     <Image
                         src='/header-icons/data-analysis-header.png'

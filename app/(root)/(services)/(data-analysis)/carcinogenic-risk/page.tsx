@@ -17,8 +17,8 @@ const CarcinogenicRiskPage = () => {
 
     return (
         <div className={`w-full flex flex-col gap-6 py-12 px-10`}>
-            <div className='  bp3:h-[900px] bp2:h-[670px] bp1:h-[440px] overflow-hidden'>
-                <div className=' grid grid-rows-[repeat(10,minmax(210px,1fr))] grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5'>
+            <div className='   overflow-hidden'>
+                <div className=' grid grid-rows-[repeat(auto-fill,minmax(210px,1fr))] grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5'>
                     <FactorBlock
                         pathToIcon='/factor-icons/chemistry.png'
                         altText='chemistry'
@@ -91,16 +91,20 @@ const CarcinogenicRiskPage = () => {
                     />
                 </div>
             </div>
-            <div className=' border-red-400 border-4 bg-white h-[400px] p-10'>
-                <CustomDropdown
-                    items={someElements}
-                />
-                aaaaaa
+            <div className=' grid grid-rows-[350px] grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5'>
+                <div className=' bg-white border border-[#d3d3d3] rounded-[20px] px-6 py-5 col-span-3 flex flex-col'>
+                    <div>
+
+                    </div>
+                </div>
+                <div className=' bg-white border border-[#d3d3d3] rounded-[20px] px-6 py-5 col-span-2 flex flex-col'>
+
+                </div>
             </div>
         </div>
     )
 }
-
+// bp3:h-[900px] bp2:h-[670px] bp1:h-[440px]
 export default CarcinogenicRiskPage
 
 
@@ -127,7 +131,7 @@ const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity }: FactorBlo
                 <div className=' font-bold text-4xl'>{tagName}</div>
             </div>
 
-            <div className=' text-[0.83rem]'>{desc}</div>
+            <div className=' text-sm'>{desc}</div>
             <div className={`flex flex-auto  gap-1 items-end ${exo.className}`}>
                 <span className=' block overflow-hidden'>
                     <input
