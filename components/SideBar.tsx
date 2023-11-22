@@ -5,7 +5,7 @@ const SideBar = () => {
 
 
     return (
-        <div className=' flex flex-col bg-white h-[100vh] py-8 pl-7 pr-12'>
+        <div className=' flex flex-col bg-white min-h-[92vh] py-8 pl-7 pr-12'>
 
             <div className=' text-center pb-12 text-2xl'>
                 Data analysis

@@ -105,7 +105,7 @@ interface FactorBlockProps {
 
 const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity }: FactorBlockProps) => {
     return (
-        <div className=' bg-white flex flex-col gap-4 p-6 rounded-[20px] border border-[#d3d3d3]'>
+        <div className=' bg-white flex flex-col gap-3 px-6 py-5 rounded-[20px] border border-[#d3d3d3]'>
 
             <div className=' flex justify-between items-center'>
                 <Image
@@ -117,7 +117,7 @@ const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity }: FactorBlo
                 <div className=' font-bold text-4xl'>{tagName}</div>
             </div>
 
-            <div className=' text-sm'>{desc}</div>
+            <div className=' text-[0.83rem]'>{desc}</div>
             <div className={`flex flex-auto  gap-1 items-end ${exo.className}`}>
                 <span className=' block overflow-hidden'>
                     <input
