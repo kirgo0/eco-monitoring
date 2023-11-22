@@ -1,6 +1,9 @@
-import React from 'react'
+'use client';
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { Exo } from 'next/font/google'
+import { RiArrowDownSLine } from "react-icons/ri";
+import { PiMagnifyingGlass } from "react-icons/pi";
 
 const exo = Exo({
     subsets: ['latin'],
@@ -10,8 +13,10 @@ const exo = Exo({
 
 
 const CarcinogenicRiskPage = () => {
+    const someElements = ['Hello man', 'Another one', 'Substance Gao', 'Leon wypal mne', 'aboba']
+
     return (
-        <div className={`w-full py-12 px-10`}>
+        <div className={`w-full flex flex-col gap-6 py-12 px-10`}>
             <div className='  bp3:h-[900px] bp2:h-[670px] bp1:h-[440px] overflow-hidden'>
                 <div className=' grid grid-rows-[repeat(10,minmax(210px,1fr))] grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5'>
                     <FactorBlock
@@ -86,6 +91,11 @@ const CarcinogenicRiskPage = () => {
                     />
                 </div>
             </div>
+            <div className=' border-red-400 border-4 bg-white h-[400px] p-10'>
+                <CustomDropdown
+                    items={someElements}
+                />
+            </div>
         </div>
     )
 }
@@ -101,7 +111,6 @@ interface FactorBlockProps {
     desc: string
     quantity: string
 }
-
 
 const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity }: FactorBlockProps) => {
     return (
@@ -131,4 +140,57 @@ const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity }: FactorBlo
         </div>
     )
 }
-// ³
+
+interface CustomDropdownProps {
+    items: string[]
+}
+
+const CustomDropdown = ({ items }: CustomDropdownProps) => {
+    const [selected, setSelected] = useState('');
+    const [open, setOpen] = useState(false);
+    const [inputValue, setInputValue] = useState('')
+
+    return (
+        <div className=' flex flex-col gap-2 w-[220px]'>
+            <div
+                className=' flex items-center justify-between  border border-[#d3d3d3] pl-3 pr-2 py-2 rounded-[8px]'
+                onClick={() => setOpen(!open)}
+            >
+                <div className={` text-lg relative top-[0.1rem] ${!selected && 'text-[#d3d3d3]'}`}>
+                    {selected ?
+                        selected.length > 25 ? selected.substring(0, 15) + '...' : selected
+                        : 'Select substance'}
+                </div>
+                <RiArrowDownSLine size={25} className={` ${open && 'rotate-180'}`} />
+            </div>
+            <ul className={` border border-[#d3d3d3] max-h-[243px] overflow-y-auto ${!open ? 'hidden' : 'flex flex-col'}`}>
+                <div className='  flex items-center pl-3 pr-3 py-2 text-base text-gray-400 gap-2 border-b'>
+                    <PiMagnifyingGlass size={17} />
+                    <input
+                        type="text"
+                        placeholder='Search'
+                        className=' relative top-[0.1rem] outline-none placeholder:text-gray-400'
+                        onChange={(e) => setInputValue(e.target.value.toLowerCase())}
+                        value={inputValue}
+                    />
+                </div>
+                {items.map((item, index) => (
+                    <li
+                        key={index}
+                        className={`  pl-3 pr-3 py-2 text-base  ${selected.toLowerCase() === item.toLowerCase() ? 'bg-dark bg-opacity-80 text-white' : 'hover:bg-gray-100'} ${item.toLowerCase().startsWith(inputValue) ? 'block' : 'hidden'}`}
+                        onClick={() => {
+                            if (item.toLocaleLowerCase() !== selected.toLocaleLowerCase()) {
+                                setSelected(item)
+                                setOpen(!open)
+                                setInputValue('')
+                            }
+                        }}
+                    >
+                        {item}
+                    </li>
+                ))}
+            </ul>
+
+        </div>
+    )
+}
