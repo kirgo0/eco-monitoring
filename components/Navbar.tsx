@@ -3,14 +3,9 @@ import React from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useState, useEffect } from 'react';
-import { FaKhanda } from 'react-icons/fa'
-import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import { TbMenu2 } from "react-icons/tb";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { PiNewspaperClippingBold } from "react-icons/pi";
-import { ImStatsDots } from "react-icons/im";
-import { TiArrowBackOutline } from "react-icons/ti";
 import Image from 'next/image'
 import { PiUserCircleLight } from "react-icons/pi";
 
@@ -95,30 +90,61 @@ const UserProfile = () => {
 const NavLinks = () => {
     const pathname = usePathname();
 
-    const inactiveLinkStyles = 'flex items-center  gap-2 lg:gap-3 py-2 lg:py-3 px-2 lg:px-3 text-lg lg:text-lg';
+    const inactiveLinkStyles = 'flex items-center gap-2 py-2 lg:py-3 px-2 lg:px-2 text-lg lg:text-lg';
     const activeLinkStyles = ' bg-secondary text-primary duration-300 transition-all ease-in-out rounded-2xl md:scale-110' + ' ' + inactiveLinkStyles;
     const inactiveHoverStyles = ' hover:bg-slate-400 hover:bg-opacity-20 hover:rounded-2xl';
 
     return (
         <aside className=' flex flex-auto lg:flex-grow-0 flex-col lg:flex-row gap-2 lg:gap-3 items-start lg:items-center'>
-            <nav className='w-full lg:w-auto' >
+            <nav className={` w-full lg:w-auto ${pathname !== '/' ? ' block' : ' hidden'}`} >
+                <Link className={pathname === '/' ? activeLinkStyles : inactiveLinkStyles + inactiveHoverStyles} href={'/'}>
+                    <Image
+                        src='/header-icons/home-header.png'
+                        alt='News'
+                        width={23}
+                        height={23}
+                        className='hidden lg:block'
+                    />
+                    <span className=' relative top-[0.2rem]'>Home</span>
+                </Link>
+            </nav>
+            <div className='lg:hidden border border-b-black border-opacity-40  w-full '></div>
+            <nav className={` w-full lg:w-auto ${pathname !== '/news' ? ' block' : ' hidden'}`} >
                 <Link className={pathname === '/news' ? activeLinkStyles : inactiveLinkStyles + inactiveHoverStyles} href={'/'}>
-                    <div className='hidden lg:flex' ><PiNewspaperClippingBold size={25} /></div>
+                    <Image
+                        src='/header-icons/news-header.png'
+                        alt='News'
+                        width={20}
+                        height={20}
+                        className='hidden lg:block'
+                    />
                     <span className=' relative top-[0.2rem]'>News</span>
                 </Link>
             </nav>
             <div className='lg:hidden border border-b-black border-opacity-40  w-full '></div>
-            <nav className='w-full lg:w-auto' >
+            <nav className={` w-full lg:w-auto ${pathname !== '/passports' ? ' block' : ' hidden'}`} >
                 <Link className={pathname === '/passports' ? activeLinkStyles : inactiveLinkStyles + inactiveHoverStyles} href={'/'}>
-                    <div className='hidden lg:flex'><ImStatsDots size={20} /></div>
-                    <span className=' relative top-[0.2rem]'>Passports</span>
+                    <Image
+                        src='/header-icons/eco-passports.png'
+                        alt='Eco passports'
+                        width={20}
+                        height={20}
+                        className='hidden lg:block'
+                    />
+                    <span className=' relative top-[0.2rem]'>Ecological passports</span>
                 </Link>
             </nav>
             <div className='lg:hidden border border-b-black border-opacity-40  w-full '></div>
-            <nav className='w-full lg:w-auto' >
-                <Link className={pathname === '/info' ? activeLinkStyles : inactiveLinkStyles + inactiveHoverStyles} href={'/'}>
-                    <div className='hidden lg:flex'><TiArrowBackOutline size={25} /></div>
-                    <span className=' relative top-[0.2rem]'>Learn more</span>
+            <nav className={` w-full lg:w-auto ${pathname !== '/carcinogenic-risk' ? ' block' : ' hidden'}`} >
+                <Link className={pathname === '/info' ? activeLinkStyles : inactiveLinkStyles + inactiveHoverStyles} href={'/carcinogenic-risk'}>
+                    <Image
+                        src='/header-icons/data-analysis-header.png'
+                        alt='Data analysis'
+                        width={23}
+                        height={23}
+                        className='hidden lg:block'
+                    />
+                    <span className=' relative top-[0.2rem]'>Data analysis</span>
                 </Link>
             </nav>
             <div className='lg:hidden border border-b-black border-opacity-40 w-full '></div>
@@ -149,7 +175,7 @@ const SearchBar = ({ autofocus }: { autofocus?: boolean }) => {
                     <input
                         autoFocus={autofocus}
                         name="search-bar"
-                        className=' bg-transparent outline-none w-full font-mono'
+                        className=' relative top-[0.1rem] text-base bg-transparent outline-none w-full placeholder:text-white'
                         type="text"
                         onChange={(e) => setSearchValue(e.target.value)}
                         placeholder='Search'

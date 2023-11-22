@@ -1,19 +1,26 @@
 import Link from 'next/link'
 import { RiArrowDownSLine } from "react-icons/ri";
 import { usePathname } from 'next/navigation'
+import Image from 'next/image'
 
 
 const SideBar = () => {
     const pathname = usePathname();
-    const inactiveLinkStyles = ' flex justify-between';
+    const inactiveLinkStyles = ' flex justify-between items-center';
     const activeLinkStyles = ' ' + ' ' + inactiveLinkStyles;
 
 
     return (
-        <div className=' fixed flex flex-col bg-white h-screen py-8 pl-7 pr-5 w-[275px]'>
+        <div className='  flex flex-col bg-white h-screen py-8 pl-7 pr-5 w-[275px]'>
 
-            <div className=' text-center pb-12 text-2xl'>
-                Data analysis
+            <div className=' flex gap-3 items-center justify-center mb-12 text-2xl '>
+                <Image
+                    src='/header-icons/data-analysis-header.png'
+                    alt='Data analysis'
+                    width={30}
+                    height={30}
+                />
+                <div>Data analysis</div>
             </div>
             <div className=' flex flex-col gap-8 text-lg'>
                 <Link href={'/carcinogenic-risk'} className={pathname === '/carcinogenic-risk' ? activeLinkStyles : inactiveLinkStyles}>

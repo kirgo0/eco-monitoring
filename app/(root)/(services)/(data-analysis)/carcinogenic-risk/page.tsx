@@ -95,6 +95,7 @@ const CarcinogenicRiskPage = () => {
                 <CustomDropdown
                     items={someElements}
                 />
+                aaaaaa
             </div>
         </div>
     )
@@ -151,25 +152,25 @@ const CustomDropdown = ({ items }: CustomDropdownProps) => {
     const [inputValue, setInputValue] = useState('')
 
     return (
-        <div className=' flex flex-col gap-2 w-[220px]'>
+        <div className=' flex flex-col w-[220px] relative'>
             <div
                 className=' flex items-center justify-between  border border-[#d3d3d3] pl-3 pr-2 py-2 rounded-[8px]'
                 onClick={() => setOpen(!open)}
             >
-                <div className={` text-lg relative top-[0.1rem] ${!selected && 'text-[#d3d3d3]'}`}>
+                <div className={` text-lg relative top-[0.1rem] ${!selected && 'text-[#7f7f7f]'}`}>
                     {selected ?
                         selected.length > 25 ? selected.substring(0, 15) + '...' : selected
                         : 'Select substance'}
                 </div>
                 <RiArrowDownSLine size={25} className={` ${open && 'rotate-180'}`} />
             </div>
-            <ul className={` border border-[#d3d3d3] max-h-[243px] overflow-y-auto ${!open ? 'hidden' : 'flex flex-col'}`}>
-                <div className='  flex items-center pl-3 pr-3 py-2 text-base text-gray-400 gap-2 border-b'>
+            <ul className={` bg-white w-[220px] border border-[#d3d3d3] max-h-[243px] overflow-y-auto ${!open ? 'hidden' : 'absolute top-[52px]'}`}>
+                <div className='  flex items-center pl-3 pr-3 py-2 text-base text-[#7f7f7f] gap-2 border-b'>
                     <PiMagnifyingGlass size={17} />
                     <input
                         type="text"
                         placeholder='Search'
-                        className=' relative top-[0.1rem] outline-none placeholder:text-gray-400'
+                        className=' relative top-[0.1rem] outline-none placeholder:text-[#7f7f7f]'
                         onChange={(e) => setInputValue(e.target.value.toLowerCase())}
                         value={inputValue}
                     />

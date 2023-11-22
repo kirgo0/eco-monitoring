@@ -78,7 +78,7 @@ const Services = () => {
 
                         <div className=" flex justify-center flex-wrap gap-10 font-bold text-lg ">
 
-                            <Link className={blockStyles} href={'/risks'}>
+                            <Link className={blockStyles} href={'/carcinogenic-risk'}>
                                 <Image
                                     src="/services-icons/data-analysis-icon.png"
                                     alt="Data analysis"
