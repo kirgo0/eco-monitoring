@@ -10,8 +10,10 @@ const HomeLayout = ({
 
     return (
         <div className="  w-full flex">
-            <div className="hidden md:flex"><SideBar /></div>
-            <div className=" max-w-[1340px] mx-auto flex flex-auto">{children}</div>
+            <div className="hidden lg:flex"><SideBar /></div>
+            <div className=" w-full lg:ml-[275px]">
+                <div className=" max-w-[1340px] mx-auto flex flex-auto">{children}</div>
+            </div>
         </div>
     )
 }
