@@ -12,6 +12,7 @@ const Hero = () => {
                             alt="background"
                             width={788}
                             height={402}
+                            quality={100}
                         />
                     </div>
                     <div className=' flex flex-col justify-center items-center mt-10 gap-4 px-6'>

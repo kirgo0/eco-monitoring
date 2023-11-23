@@ -28,6 +28,7 @@ const Services = () => {
                                     alt="Data analysis"
                                     width={100}
                                     height={100}
+                                    quality={100}
                                 />
                                 <div className=' uppercase'>Data analysis</div>
                             </Link>
@@ -38,6 +39,7 @@ const Services = () => {
                                     alt="Env passports"
                                     width={100}
                                     height={100}
+                                    quality={100}
                                 />
                                 <div className=' uppercase'>Env. passports</div>
                             </div>
@@ -53,6 +55,7 @@ const Services = () => {
                                     width={100}
                                     height={100}
                                     color='#2e7268'
+                                    quality={100}
                                 />
                                 <div className=' uppercase'>News</div>
                             </div>
@@ -64,6 +67,7 @@ const Services = () => {
                                     width={100}
                                     height={100}
                                     color='#2e7268'
+                                    quality={100}
                                 />
                                 <div className=' uppercase'>All services</div>
                             </div>
