@@ -1,4 +1,6 @@
+'use client';
 import Image from 'next/image'
+import { TypeAnimation } from 'react-type-animation'
 
 const Hero = () => {
     return (
@@ -16,9 +18,25 @@ const Hero = () => {
                         />
                     </div>
                     <div className=' flex flex-col justify-center items-center mt-10 gap-4 px-6'>
-                        <p className=' text-center font-bold text-2xl lg:text-3xl'>
+                        {/* <p className=' text-center font-bold text-2xl lg:text-3xl'>
                             UKRAINIAN ENVIROMENTAL MONITORING
-                        </p>
+                        </p> */}
+                        <TypeAnimation
+                            sequence={[
+                                'UKRAINIAN ENVIRONMENTAL OBSERVATION',
+                                1700,
+                                'UKRAINIAN ENVIRONMENTAL MONITORING',
+                                3500,
+                                '',
+                                1500
+
+                            ]}
+                            speed={1}
+                            deletionSpeed={30}
+                            style={{ fontSize: '1.875rem', fontWeight: '700', textAlign: 'center' }}
+                            repeat={Infinity}
+
+                        />
 
                         <div className=' max-w-[450px]'>
                             <p className='text-center text-md lg:text-lg'>The best source of information and analytics on the state of the environment in Ukraine</p>
@@ -34,40 +52,3 @@ const Hero = () => {
 }
 
 export default Hero
-
-
-{/* <div className='pt-[130px] pb-[60px] px-[20px]  md:pt-[150px] md:pb-[80px] md:px-[290px] bg-[url(/hero_bg.png)] bg-no-repeat bg-cover'>
-<Image
-    src="/logo.png"
-    alt="logo"
-    width={135}
-    height={135}
-/>
-</div> */}
-
-
-{/* <div className='flex items-center justify-center w-[41.0416vw] h-[36.9146vh] bg-[url(/hero_bg.png)] bg-no-repeat bg-cover '>
-                        <Image
-                            src="/logo.png"
-                            alt="logo"
-                            width={135}
-                            height={135}
-                        />
-                    </div> */}
-
-{/* <div className=' relative'>
-    <Image
-        src="/hero_bg.png"
-        alt="background"
-        width={788}
-        height={402}
-    />
-</div>
-<div className=' absolute top-[270px]'>
-    <Image
-        src="/logo.png"
-        alt="logo"
-        width={145}
-        height={145}
-    />
-</div> */}

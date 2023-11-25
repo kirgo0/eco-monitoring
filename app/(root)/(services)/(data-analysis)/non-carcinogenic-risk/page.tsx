@@ -1,8 +1,8 @@
-import React from 'react'
+import NonCarcinogenicRiskContent from './NonCarcinogenicRiskContent'
 
 const NonCarcinogenicRiskPage = () => {
     return (
-        <div>NonCarcinogenicRiskPage</div>
+        <NonCarcinogenicRiskContent />
     )
 }
 

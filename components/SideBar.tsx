@@ -35,12 +35,6 @@ const SideBar = () => {
                     </div>
                     <RiArrowDownSLine size={27} className={` ${pathname === '/non-carcinogenic-risk' && ' text-[#4e7a54] rounded-full bg-primary'} -rotate-90`} />
                 </Link>
-                <Link href={'/total-non-carcinogenic-risk'} className={pathname === '/total-non-carcinogenic-risk' ? activeLinkStyles : inactiveLinkStyles}>
-                    <div className={` relative top-[0.1rem] ${pathname === '/total-non-carcinogenic-risk' && 'border-b-2 border-[#4e7a54]'}`}>
-                        Total non-carcinogenic
-                    </div>
-                    <RiArrowDownSLine size={27} className={` ${pathname === '/total-non-carcinogenic-risk' && ' text-[#4e7a54] rounded-full bg-primary'} -rotate-90`} />
-                </Link>
             </div>
 
         </div>
