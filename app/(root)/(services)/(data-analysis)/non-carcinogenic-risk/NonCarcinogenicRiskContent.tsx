@@ -1,10 +1,7 @@
 'use client';
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import { Exo } from 'next/font/google'
-import { RiArrowDownSLine } from "react-icons/ri";
-import { PiMagnifyingGlass } from "react-icons/pi";
-import { CompanyType, PassportType, passportsWithCompaniesType } from '@/types';
 import { CustomDropdown, FactorBlock } from '@/components';
 
 const exo = Exo({
@@ -14,7 +11,7 @@ const exo = Exo({
 })
 
 const NonCarcinogenicRiskContent = () => {
-    const [diseases, setDiseases] = useState<string[]>(['Respiratory organs', 'CNS', 'Kidneys'])
+    const [diseases, setDiseases] = useState<string[]>(['Respiratory organs', 'CNS', 'Kidneys', 'Cardio'])
     const [selectedCompany, setSelectedCompany] = useState('');
     const [selectedPassport, setSelectedPassport] = useState('');
     const [selectedSubstance, setSelectedSubstance] = useState('');
@@ -22,9 +19,9 @@ const NonCarcinogenicRiskContent = () => {
 
 
     return (
-        <div className="w-full flex flex-col gap-6 py-12 px-10">
-            <div className=' grid grid-rows-[repeat(auto-fill,minmax(210px,1fr))] grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5'>
-                <div className=' flex flex-col gap-8 bg-white border border-[#d3d3d3] rounded-[20px] p-6 row-span-2 col-span-2'>
+        <div className=" w-full flex flex-col gap-6 py-12 px-10">
+            <div className=' grid grid-rows-[repeat(auto-fill,minmax(210px,auto_1fr))] grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5'>
+                <div className=' flex flex-col gap-8 bg-white border border-[#d3d3d3] rounded-[20px] p-6 row-span-2 sm:col-span-2 order-1'>
                     <div className=' flex items-center justify-center sm:justify-between'>
                         <Image
                             src='/settings-icon.png'
@@ -33,12 +30,13 @@ const NonCarcinogenicRiskContent = () => {
                             height={50}
                             className='hidden sm:block'
                         />
-                        <div className=' relative top-[0.2rem] font-bold text-3xl md:text-4xl tracking-wider'>
+                        <div className=' relative top-[0.2rem] font-bold text-3xl md:text-4xl tracking-wider text-center sm:text-baseline'>
                             DEFAULT VALUES
                         </div>
                     </div>
-                    <div className=' flex flex-col flex-auto  justify-between items-center px-5'>
-                        <div className=' flex items-center w-full justify-between '>
+                    <div className=' flex flex-col flex-auto gap-4 lg:gap-0  justify-between items-center sm:px-5'>
+
+                        <div className=' flex flex-col sm:flex-row items-center w-full justify-between '>
                             <p className=' max-w-[83px] sm:text-base md:text-sm'>
                                 Company
                             </p>
@@ -48,7 +46,7 @@ const NonCarcinogenicRiskContent = () => {
                                 setSelected={setSelectedCompany}
                             />
                         </div>
-                        <div className=' flex items-center w-full justify-between '>
+                        <div className=' flex flex-col sm:flex-row items-center w-full justify-between '>
                             <p className=' max-w-[83px] sm:text-base md:text-sm'>
                                 Passport
                             </p>
@@ -58,7 +56,7 @@ const NonCarcinogenicRiskContent = () => {
                                 setSelected={setSelectedPassport}
                             />
                         </div>
-                        <div className=' flex items-center w-full justify-between '>
+                        <div className=' flex flex-col sm:flex-row items-center w-full justify-between '>
                             <p className=' max-w-[83px] sm:text-base md:text-sm'>
                                 Substance
                             </p>
@@ -68,7 +66,7 @@ const NonCarcinogenicRiskContent = () => {
                                 setSelected={setSelectedSubstance}
                             />
                         </div>
-                        <div className=' flex items-center w-full justify-between '>
+                        <div className=' flex flex-col sm:flex-row items-center w-full justify-between '>
                             <p className=' max-w-[83px] sm:text-base md:text-sm'>
                                 RfC Substance
                             </p>
@@ -82,15 +80,17 @@ const NonCarcinogenicRiskContent = () => {
                     </div>
                 </div>
 
-                <FactorBlock
-                    pathToIcon='/factor-icons/chemistry.png'
-                    altText='chemistry'
-                    tagName='C'
-                    desc='Concentration of the substance in the ambient air'
-                    quantity='mg/m³'
-                />
+                <div className=' order-2'>
+                    <FactorBlock
+                        pathToIcon='/factor-icons/chemistry.png'
+                        altText='chemistry'
+                        tagName='C'
+                        desc='Concentration of the substance in the ambient air'
+                        quantity='mg/m³'
+                    />
+                </div>
 
-                <div className=' flex flex-col flex-auto gap-5 bg-white border border-[#d3d3d3] rounded-[20px] p-6 row-span-2'>
+                <div className=' flex flex-col flex-auto gap-5 bg-white border border-[#d3d3d3] rounded-[20px] p-6 row-span-2 order-5 xl:order-3  md:col-span-2 xl:col-span-1'>
                     <div className=' flex items-center justify-between'>
                         <Image
                             src='/calculator-icon.png'
@@ -118,7 +118,7 @@ const NonCarcinogenicRiskContent = () => {
                     </div>
                 </div>
 
-                <div className=' flex flex-col gap-7 bg-white border border-[#d3d3d3] rounded-[20px] p-6 row-span-2'>
+                <div className=' flex flex-col gap-7 bg-white border border-[#d3d3d3] rounded-[20px] p-6 row-span-2 order-4'>
                     <div className=' flex items-center justify-between'>
                         <Image
                             src='/factor-icons/bronchus.png'
@@ -188,13 +188,15 @@ const NonCarcinogenicRiskContent = () => {
                     </div>
                 </div>
 
-                <FactorBlock
-                    pathToIcon='/factor-icons/hourglass (1).png'
-                    altText='Time'
-                    tagName='RfC'
-                    desc='Daily exposure to a chemical over a lifetime'
-                    quantity='mg/m³'
-                />
+                <div className=' order-3 xl:order-5'>
+                    <FactorBlock
+                        pathToIcon='/factor-icons/hourglass (1).png'
+                        altText='Time'
+                        tagName='RfC'
+                        desc='Daily exposure to a chemical over a lifetime'
+                        quantity='mg/m³'
+                    />
+                </div>
 
             </div>
         </div>
