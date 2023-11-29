@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { Exo } from 'next/font/google'
 import { ChangeEventHandler, useEffect, useState } from 'react'
+import { ZodTypeAny } from 'zod'
 
 const exo = Exo({
     subsets: ['latin'],
@@ -29,7 +30,7 @@ const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity, name, value
     }, [value]);
 
     return (
-        <div className=' min-h-[210px] h-full bg-white flex flex-col gap-4 p-6 rounded-[20px] border border-[#d3d3d3]'>
+        <div className={` min-h-[210px] h-full bg-white  flex flex-col gap-4 p-6 rounded-[20px] border border-[#d3d3d3]`}>
 
             <div className=' flex justify-between items-center'>
                 <Image

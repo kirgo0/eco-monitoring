@@ -30,6 +30,12 @@ export interface PollutionType {
     rfc_factor_id: string
 }
 
+export interface RfcFactorType {
+    id: number,
+    factor_Name: string
+    factor_value: number
+}
+
 export interface passportsWithCompaniesType extends PassportType {
     company_name: string
 }
@@ -45,4 +51,8 @@ export interface CarcinogenicDataType {
     ed: string,
     bw: string,
     at: string
+}
+export interface NonCarcinogenicDataType {
+    c: string
+    rfc: string
 }

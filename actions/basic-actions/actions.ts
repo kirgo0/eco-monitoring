@@ -2,7 +2,7 @@
 import fetch from 'node-fetch';
 import https from 'https';
 import { CustomServerResponse } from '@/types';
-import { CarcinogenicFactorsSchema } from '@/schemas';
+import { CarcinogenicFactorsSchema, NonCarcinogenicFactorsSchema } from '@/schemas';
 import { formatServerErrors, getErrorMessage } from '../secondary-utils/errorHandling';
 
 const agent = new https.Agent({
@@ -75,6 +75,28 @@ export const getPollutions = async () => {
     }
 };
 
+export const getRfcFactors = async () => {
+    const fetchOptions = {
+        method: 'GET',
+        agent,
+    };
+
+    try {
+        const response = await fetch('https://localhost:7001/api/RfcData', fetchOptions);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json() as CustomServerResponse;
+
+        return data.result;
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+    }
+}
+
 export const getCalculatedCarcinogenicRisk = async (carcinogenicFactors: unknown) => {
     try {
         //server-side validation
@@ -95,7 +117,7 @@ export const getCalculatedCarcinogenicRisk = async (carcinogenicFactors: unknown
             body: JSON.stringify(result.data),
             agent
         };
-        const response = await fetch('https://localhost:7001/api/DataAnalysis', fetchOptions)
+        const response = await fetch('https://localhost:7001/api/DataAnalysis/CarcinogenicRisk', fetchOptions)
 
         if (!response.ok) {
             const responseBody = await response.json() as CustomServerResponse;
@@ -108,36 +130,38 @@ export const getCalculatedCarcinogenicRisk = async (carcinogenicFactors: unknown
     catch (error) {
         return { error: getErrorMessage(error) }
     }
-
 }
+export const getCalculatedNonCarcinogenicRisk = async (nonCarcinogenicFactors: unknown) => {
+    try {
+        //server-side validation
+        const result = NonCarcinogenicFactorsSchema.safeParse(nonCarcinogenicFactors);
+        if (!result.success) {
+            let errorMessage = '';
+            result.error.issues.forEach((err) => {
+                errorMessage += err.path[0] + ': ' + err.message + '. '
+            })
+            throw new Error(errorMessage);
+        }
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                'accept': 'text/plain',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(result.data),
+            agent
+        };
+        const response = await fetch('https://localhost:7001/api/DataAnalysis/NonCarcinogenicRisk', fetchOptions)
 
-//server-side validation
-// const result = CarcinogenicFactorsSchema.safeParse(carcinogenicFactors);
-// if (!result.success) {
-//     let errorMessage = '';
-//     result.error.issues.forEach((err) => {
-//         errorMessage += err.path[0] + ': ' + err.message + '. '
-//     })
-//     throw new Error(errorMessage);
-// }
-// const fetchOptions = {
-//     method: 'POST',
-//     headers: {
-//         'accept': 'text/plain',
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(result.data),
-//     agent
-// };
-// const response = await fetch('https://localhost:7001/api/DataAnalysis', fetchOptions);
+        if (!response.ok) {
+            const responseBody = await response.json() as CustomServerResponse;
+            throw new Error(formatServerErrors(responseBody.errorMessages));
+        }
+        const data = await response.json() as CustomServerResponse;
 
-// if (!response.ok) {
-//     const responseBody = await response.json() as CustomServerResponse;
-//     throw new Error(formatServerErrors(responseBody.errorMessages));
-// }
-
-// const data = await response.json() as CustomServerResponse;
-// return data;
-// } catch (error) {
-// return { error: getErrorMessage(error) }
-// }
+        return Number(data.result);
+    }
+    catch (error) {
+        return { error: getErrorMessage(error) }
+    }
+}

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Exo } from 'next/font/google'
-import { CarcinogenicDataType, CompanyType, PassportType, PollutionType, passportsWithCompaniesType } from '@/types';
+import { CarcinogenicDataType, PollutionType, passportsWithCompaniesType } from '@/types';
 import { CustomDropdown, ErrorToast, FactorBlock, SuccessfulToast } from '@/components';
 import { getCalculatedCarcinogenicRisk } from '@/actions/basic-actions/actions';
 import { CarcinogenicFactorsSchema } from '@/schemas';
@@ -16,16 +16,12 @@ const exo = Exo({
 })
 
 interface CarcinogenicRiskContentProps {
-    companies: CompanyType[]
-    passports: PassportType[]
     pollutions: PollutionType[]
     companyNames: string[]
-    pollutionNames: string[]
     passportsWithCompanies: passportsWithCompaniesType[]
 }
 
-const CarcinogenicRiskContent = ({
-    companies, passports, pollutions, companyNames, pollutionNames, passportsWithCompanies
+const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompanies
 }: CarcinogenicRiskContentProps) => {
     const [calculatedCarcinogenicRisk, setCalculatedCarcinogenicRisk] = useState('')
 
@@ -45,10 +41,10 @@ const CarcinogenicRiskContent = ({
         tin: '',
         vout: '',
         vin: '',
-        ef: '',
-        ed: '',
+        ef: '350',
+        ed: '30',
         bw: '',
-        at: ''
+        at: '70'
     })
 
     //finding passports relating to specific company name
@@ -88,8 +84,9 @@ const CarcinogenicRiskContent = ({
             const chValue = selectedSubstanceByPassport?.factor_Ch_value;
             setCarcinogenicData({
                 ...carcinogenicData,
-                ca: String(caValue) || '',
-                ch: String(chValue) || ''
+                ca: caValue !== undefined ? String(caValue) : '',
+                ch: chValue !== undefined ? String(chValue) : ''
+
             })
 
         }
@@ -331,8 +328,8 @@ const CarcinogenicRiskContent = ({
                             <div className=' flex flex-col gap-8 flex-auto'>
                                 <p className=' text-sm'>The average daily dose of exposure to a substance for the city' population</p>
                                 <div className=' flex gap-2 items-center'>
-                                    <p className={`text-xl font-light min-w-[90px] ${exo.className}`}>{calculatedCarcinogenicRisk}</p>
-                                    <div className=' text-[#7f7f7f]'>mg/kg-day</div>
+                                    <p className={`text-xl font-light break-words ${exo.className}`}>{calculatedCarcinogenicRisk}</p>
+                                    <div className={` text-[#7f7f7f] ${calculatedCarcinogenicRisk === '' ? 'hidden' : 'block'}`}>mg/kg-day</div>
                                 </div>
                                 <div className=' flex flex-auto items-end'>
                                     <button

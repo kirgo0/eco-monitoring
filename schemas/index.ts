@@ -10,6 +10,11 @@ const DefaultFactorSchema = (factorName: string) => {
     }, { message: `${factorName} value must be a positive number` });
 }
 
+const aboba = z.string().refine((value) => {
+    const numericValue = Number(value);
+    return !isNaN(numericValue) && numericValue > 0;
+}, { message: ` value must be a positive number` });
+
 const DefaultTimeFactorSchema = (factorName: string, upperLimit: number) => {
     return z.string().refine((value) => {
         const numericValue = Number(value);
@@ -28,4 +33,9 @@ export const CarcinogenicFactorsSchema = z.object({
     ed: DefaultTimeFactorSchema('Ed', 365),
     bw: DefaultTimeFactorSchema('Bw', 300),
     at: DefaultFactorSchema('At')
+})
+
+export const NonCarcinogenicFactorsSchema = z.object({
+    c: DefaultFactorSchema('C'),
+    rfc: DefaultFactorSchema('Rfc')
 })
