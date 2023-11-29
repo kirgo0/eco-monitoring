@@ -4,6 +4,8 @@ import Services from "./Services";
 import SideBar from "./SideBar";
 import FactorBlock from "./FactorBlock";
 import CustomDropdown from "./CustomDropdown";
+import SuccessfulToast from "./toasts/SuccessfulToast";
+import ErrorToast from "./toasts/ErrorToast";
 
 
 export {
@@ -12,5 +14,7 @@ export {
     Services,
     SideBar,
     FactorBlock,
-    CustomDropdown
+    CustomDropdown,
+    SuccessfulToast,
+    ErrorToast,
 }

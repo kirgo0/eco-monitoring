@@ -1,38 +1,38 @@
-import { getCompanies, getPassports } from '@/actions/basic-actions/actions';
+import { getCompanies, getPassports, getPollutions } from '@/actions/basic-actions/actions';
 import CarcinogenicRiskContent from './CarcinogenicRiskContent';
-import { CompanyType, PassportType, passportsWithCompaniesType } from '@/types';
+import { CompanyType, PassportType, PollutionType, passportsWithCompaniesType } from '@/types';
 
 
 const CarcinogenicRiskPage = async () => {
-    // const companies = await getCompanies();
-    // const passports = await getPassports();
+    const companies = await getCompanies();
+    const passports = await getPassports();
+    const pollutions = await getPollutions();
 
-    // const companyNames = companies.map(company => (company.name));
+    const companyNames = companies.map(company => (company.name));
+    const pollutionNames = pollutions.map(pollution => (pollution.factor_Name));
 
-    // const companyMap: { [key: number]: string } = {};
-    // companies.forEach(company => {
-    //     companyMap[company.id] = company.name;
-    // });
-
-    // const passportsWithCompanies = passports.map(passport => ({
-    //     ...passport,
-    //     company_name: companyMap[passport.company_id]
-    // }));
+    const passportsWithCompanies = passports.map(passport => ({
+        ...passport,
+        company_name: companies.find(company => company.id === passport.company_id).name
+    }));
 
     return (
-        // <CarcinogenicRiskContent
-        //     companies={companies as CompanyType[]}
-        //     passports={passports as PassportType[]}
-        //     companyNames={companyNames as string[]}
-        //     passportsWithCompanies={passportsWithCompanies as passportsWithCompaniesType[]}
-        // />
-
         <CarcinogenicRiskContent
-            companies={[] as CompanyType[]}
-            passports={[] as PassportType[]}
-            companyNames={[] as string[]}
-            passportsWithCompanies={[] as passportsWithCompaniesType[]}
+            companies={companies as CompanyType[]}
+            passports={passports as PassportType[]}
+            pollutions={pollutions as PollutionType[]}
+            companyNames={companyNames as string[]}
+            passportsWithCompanies={passportsWithCompanies as passportsWithCompaniesType[]}
+            pollutionNames={pollutionNames as string[]}
+
         />
+
+        // <CarcinogenicRiskContent
+        //     companies={[] as CompanyType[]}
+        //     passports={[] as PassportType[]}
+        //     companyNames={[] as string[]}
+        //     passportsWithCompanies={[] as passportsWithCompaniesType[]}
+        // />
 
     )
 }

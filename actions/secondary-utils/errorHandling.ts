@@ -1,4 +1,4 @@
-const getErrorMessage = (error: unknown): string => {
+export const getErrorMessage = (error: unknown): string => {
     let message: string;
     if (error instanceof Error) {
         message = error.message;
@@ -15,7 +15,7 @@ const getErrorMessage = (error: unknown): string => {
     return message;
 }
 
-const formatServerErrors = (errorMessages: string[]) => {
+export const formatServerErrors = (errorMessages: string[]) => {
     if (!Array.isArray(errorMessages) || errorMessages.length === 0) {
         return;
     }

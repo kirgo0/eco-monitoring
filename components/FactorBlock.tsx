@@ -1,5 +1,7 @@
+'use client'
 import Image from 'next/image'
 import { Exo } from 'next/font/google'
+import { ChangeEventHandler, useEffect, useState } from 'react'
 
 const exo = Exo({
     subsets: ['latin'],
@@ -12,10 +14,20 @@ interface FactorBlockProps {
     altText: string
     tagName: string
     desc: string
-    quantity: string
+    quantity: string,
+    name: string;
+    handleChange: ChangeEventHandler<HTMLInputElement>;
+    value: string;
 }
 
-const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity }: FactorBlockProps) => {
+const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity, name, value, handleChange }: FactorBlockProps) => {
+    const [inputData, setInputData] = useState('');
+
+    useEffect(() => {
+        setInputData(value || '');
+
+    }, [value]);
+
     return (
         <div className=' min-h-[210px] h-full bg-white flex flex-col gap-4 p-6 rounded-[20px] border border-[#d3d3d3]'>
 
@@ -36,6 +48,13 @@ const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity }: FactorBlo
                     <input
                         className=' text-xl font-light bg-transparent outline-none'
                         type="text"
+                        required
+                        name={name}
+                        onChange={(e) => {
+                            setInputData(e.target.value);
+                            handleChange(e);
+                        }}
+                        value={inputData}
                         placeholder='- - -'
                     />
                 </span>

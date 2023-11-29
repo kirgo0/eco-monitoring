@@ -36,7 +36,7 @@ const CustomDropdown = ({ items, selected, setSelected }: CustomDropdownProps) =
             >
                 <div className={` text-lg relative top-[0.1rem] ${!selected && 'text-[#7f7f7f]'}`}>
                     {selected ?
-                        selected.length > 25 ? selected.substring(0, 15) + '...' : selected
+                        selected.length > 20 ? selected.substring(0, 15) + '...' : selected
                         : 'Select item'}
                 </div>
                 <RiArrowDownSLine size={25} className={` ${open && 'rotate-180'}`} />
