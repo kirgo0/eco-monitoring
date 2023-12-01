@@ -10,11 +10,6 @@ const DefaultFactorSchema = (factorName: string) => {
     }, { message: `${factorName} value must be a positive number` });
 }
 
-const aboba = z.string().refine((value) => {
-    const numericValue = Number(value);
-    return !isNaN(numericValue) && numericValue > 0;
-}, { message: ` value must be a positive number` });
-
 const DefaultTimeFactorSchema = (factorName: string, upperLimit: number) => {
     return z.string().refine((value) => {
         const numericValue = Number(value);

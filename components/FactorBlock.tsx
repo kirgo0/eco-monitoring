@@ -19,9 +19,10 @@ interface FactorBlockProps {
     name: string;
     handleChange: ChangeEventHandler<HTMLInputElement>;
     value: string;
+    validation: (inputData: string) => boolean;
 }
 
-const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity, name, value, handleChange }: FactorBlockProps) => {
+const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity, name, value, handleChange, validation }: FactorBlockProps) => {
     const [inputData, setInputData] = useState('');
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const FactorBlock = ({ pathToIcon, altText, tagName, desc, quantity, name, value
     }, [value]);
 
     return (
-        <div className={` min-h-[210px] h-full bg-white  flex flex-col gap-4 p-6 rounded-[20px] border border-[#d3d3d3]`}>
+        <div className={` min-h-[210px] h-full ${validation(inputData) ? 'bg-white' : 'bg-gray-200'} flex flex-col gap-4 p-6 rounded-[20px] border border-[#d3d3d3]`}>
 
             <div className=' flex justify-between items-center'>
                 <Image

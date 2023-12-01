@@ -139,6 +139,10 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
         }
 
     }
+    const positiveNumberValidation = (inputData: string) => {
+        const numericValue = Number(inputData);
+        return !isNaN(numericValue) && numericValue > 0;
+    }
 
 
     return (
@@ -214,6 +218,7 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
                             name='c'
                             handleChange={handleNonCarcinogenicFactorsChange}
                             value={nonCarcinogenicData.c}
+                            validation={positiveNumberValidation}
                         />
                     </div>
 
@@ -330,6 +335,7 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
                             name='rfc'
                             handleChange={handleNonCarcinogenicFactorsChange}
                             value={nonCarcinogenicData.rfc}
+                            validation={positiveNumberValidation}
                         />
                     </div>
 

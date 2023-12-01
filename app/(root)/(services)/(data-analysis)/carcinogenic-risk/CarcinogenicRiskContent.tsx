@@ -131,6 +131,16 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
         }
 
     }
+    const positiveNumberValidation = (inputData: string) => {
+        const numericValue = Number(inputData);
+        return !isNaN(numericValue) && numericValue > 0;
+    }
+    const positiveNumberWithUpperLimitValidation = (upperLimit: number) => {
+        return (inputData: string) => {
+            const numericValue = Number(inputData);
+            return !isNaN(numericValue) && numericValue > 0 && numericValue <= upperLimit;
+        };
+    };
 
 
 
@@ -151,6 +161,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='ca'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.ca}
+                            validation={positiveNumberValidation}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/enzyme.png'
@@ -161,6 +172,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='ch'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.ch}
+                            validation={positiveNumberValidation}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/back-in-time.png'
@@ -171,6 +183,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='tout'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.tout}
+                            validation={positiveNumberWithUpperLimitValidation(24)}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/clock.png'
@@ -181,6 +194,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='tin'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.tin}
+                            validation={positiveNumberWithUpperLimitValidation(24)}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/respiratory.png'
@@ -191,6 +205,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='vout'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.vout}
+                            validation={positiveNumberValidation}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/facemask.png'
@@ -201,6 +216,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='vin'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.vin}
+                            validation={positiveNumberValidation}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/frequency.png'
@@ -211,6 +227,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='ef'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.ef}
+                            validation={positiveNumberValidation}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/hourglass.png'
@@ -221,6 +238,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='ed'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.ed}
+                            validation={positiveNumberWithUpperLimitValidation(365)}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/weight-loss.png'
@@ -231,6 +249,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='bw'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.bw}
+                            validation={positiveNumberWithUpperLimitValidation(300)}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/period.png'
@@ -241,6 +260,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='at'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.at}
+                            validation={positiveNumberValidation}
                         />
                     </>
                     <div className=' bg-white border border-[#d3d3d3] rounded-[20px] p-6 col-span-full xl:col-span-3 flex flex-col min-h-[320px]'>
