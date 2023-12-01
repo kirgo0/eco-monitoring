@@ -141,11 +141,32 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
         if (response && typeof response === 'object' && 'error' in response) {
             toast.custom((t) => <ErrorToast t={t} message={response.error} />);
         } else {
-            setCalculatedCarcinogenicRisk(String(response))
+            console.log(response);
+            setCalculatedCarcinogenicRisk(
+                convertDoubleToString(response)
+                // String(response)
+                )
             toast.custom((t) => <SuccessfulToast t={t} message='Carcinogenic risk successfuly calculated' />, { duration: 2500 });
         }
 
     }
+
+    function convertDoubleToString(num: number): string {
+        const exponent = Math.floor(Math.log10(Math.abs(num))); // Знаходимо експоненту
+      
+        // Функція для конвертації цифр у символи степенів
+        function convertToSuperscriptDigit(digit: number): string {
+          const superscripts = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'];
+          return digit.toString().split('').map((char) => superscripts[parseInt(char)]).join('');
+        }
+      
+        const coefficient = Math.abs(num) / Math.pow(10, exponent); // Коефіцієнт
+        const exponentString = exponent !== 0 ? (exponent < 0 ? `10⁻${convertToSuperscriptDigit(Math.abs(exponent))}` : `10${convertToSuperscriptDigit(exponent)}`) : '';
+      
+        // Повертаємо рядок з коефіцієнтом та 10 у степені експоненти (з використанням символів степенів)
+        return `${coefficient.toFixed(5)} * ${exponentString}`;
+    }
+
     const positiveNumberValidation = (inputData: string) => {
         const numericValue = Number(inputData);
         return !isNaN(numericValue) && numericValue > 0;

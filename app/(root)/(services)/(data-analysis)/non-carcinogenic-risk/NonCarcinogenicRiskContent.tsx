@@ -139,7 +139,9 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
         if (response && typeof response === 'object' && 'error' in response) {
             toast.custom((t) => <ErrorToast t={t} message={response.error} />);
         } else {
-            setCalculatedNonCarcinogenicRisk(String(response))
+            setCalculatedNonCarcinogenicRisk(
+                convertDoubleToString(response)
+                )
             toast.custom((t) => <SuccessfulToast t={t} message='Carcinogenic risk successfuly calculated' />, { duration: 2500 });
         }
 
@@ -149,6 +151,22 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
         return !isNaN(numericValue) && numericValue > 0;
     }
 
+    
+    function convertDoubleToString(num: number): string {
+        const exponent = Math.floor(Math.log10(Math.abs(num))); // Знаходимо експоненту
+      
+        // Функція для конвертації цифр у символи степенів
+        function convertToSuperscriptDigit(digit: number): string {
+          const superscripts = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'];
+          return digit.toString().split('').map((char) => superscripts[parseInt(char)]).join('');
+        }
+      
+        const coefficient = Math.abs(num) / Math.pow(10, exponent); // Коефіцієнт
+        const exponentString = exponent !== 0 ? (exponent < 0 ? `10⁻${convertToSuperscriptDigit(Math.abs(exponent))}` : `10${convertToSuperscriptDigit(exponent)}`) : '';
+      
+        // Повертаємо рядок з коефіцієнтом та 10 у степені експоненти (з використанням символів степенів)
+        return `${coefficient.toFixed(5)} * ${exponentString}`;
+    }
 
     return (
         <div className=" w-full flex flex-col gap-6 py-12 px-10">
