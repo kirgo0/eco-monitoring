@@ -227,7 +227,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                             name='ef'
                             handleChange={handleCarcinogenicFactorsChange}
                             value={carcinogenicData.ef}
-                            validation={positiveNumberValidation}
+                            validation={positiveNumberWithUpperLimitValidation(365)}
                         />
                         <FactorBlock
                             pathToIcon='/factor-icons/hourglass.png'
