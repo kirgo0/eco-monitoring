@@ -34,6 +34,7 @@ export interface RfcFactorType {
     id: number,
     factor_Name: string
     factor_value: number
+    damaged_organs: string
 }
 
 export interface passportsWithCompaniesType extends PassportType {

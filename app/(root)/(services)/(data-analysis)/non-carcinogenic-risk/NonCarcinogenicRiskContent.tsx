@@ -29,7 +29,7 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
 
     const [possiblePassports, setPossiblePassports] = useState<string[]>([])
     const [possibleSubstances, setPossibleSubstances] = useState<string[]>([]);
-    const [diseases, setDiseases] = useState<string[]>(['Respiratory organs', 'CNS', 'Kidneys', 'Cardio'])
+    const [damagedOrgans, setDamagedOrgans] = useState<string[]>([])
 
     const [selectedCompany, setSelectedCompany] = useState('');
     const [selectedPassport, setSelectedPassport] = useState('');
@@ -87,11 +87,16 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
 
     //sets rfc to respective value
     useEffect(() => {
-        const rfcValue = getRfcSubstanceByName(selectedRFCSubstance)?.factor_value
+        const rfcSelectedSubstance = getRfcSubstanceByName(selectedRFCSubstance);
+        const rfcValue = rfcSelectedSubstance?.factor_value
         setNonCarcinogenicData({
             ...nonCarcinogenicData,
             rfc: rfcValue !== undefined ? String(rfcValue) : ''
         })
+        if (rfcSelectedSubstance !== undefined) {
+            setDamagedOrgans(rfcSelectedSubstance?.damaged_organs.split(", ").map(el => el.toLowerCase()))
+        }
+
     }, [selectedRFCSubstance])
 
 
@@ -238,8 +243,8 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
                             {calculatedNonCarcinogenicRisk}
                         </p>
                         <p className=' text-sm'>Critical organs/systems</p>
-                        <div className={` ${exo.className} text-red-400 text-lg flex flex-col gap-4 leading-5 max-h-[100px] overflow-y-auto`}>
-                            {diseases.map((disease, index) => (
+                        <div className={` ${exo.className} text-red-400 text-lg flex flex-col gap-4 leading-5 max-h-[100px] overflow-y-scroll`}>
+                            {damagedOrgans.map((disease, index) => (
                                 <div key={index}>
                                     {disease}
                                 </div>
@@ -274,7 +279,7 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
                                 height={336}
                                 priority
                             />
-                            <div className={` absolute -top-2.5 ${diseases.includes('CNS') ? 'block' : 'hidden'}`}>
+                            <div className={` absolute -top-2.5 ${damagedOrgans.includes('cns') ? 'block' : 'hidden'}`}>
                                 <Image
                                     src='/factor-icons/body/CNS.png'
                                     alt='CNS'
@@ -282,7 +287,7 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
                                     height={336}
                                 />
                             </div>
-                            <div className={` absolute -top-2.5 ${diseases.includes('Respiratory organs') ? 'block' : 'hidden'}`}>
+                            <div className={` absolute -top-2.5 ${damagedOrgans.includes('respiratory organs') ? 'block' : 'hidden'}`}>
                                 <Image
                                     src='/factor-icons/body/respiratory.png'
                                     alt='Respiratory'
@@ -290,7 +295,7 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
                                     height={336}
                                 />
                             </div>
-                            <div className={` absolute -top-2.5 ${diseases.includes('Kidneys') ? 'block' : 'hidden'}`}>
+                            <div className={` absolute -top-2.5 ${damagedOrgans.includes('kidneys') ? 'block' : 'hidden'}`}>
                                 <Image
                                     src='/factor-icons/body/kidneys.png'
                                     alt='Kidneys'
@@ -298,7 +303,7 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
                                     height={336}
                                 />
                             </div>
-                            <div className={` absolute -top-2.5 ${diseases.includes('Liver') ? 'block' : 'hidden'}`}>
+                            <div className={` absolute -top-2.5 ${damagedOrgans.includes('liver') ? 'block' : 'hidden'}`}>
                                 <Image
                                     src='/factor-icons/body/liver.png'
                                     alt='Liver'
@@ -306,7 +311,7 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
                                     height={336}
                                 />
                             </div>
-                            <div className={` absolute -top-2.5 ${diseases.includes('Reproduct') ? 'block' : 'hidden'}`}>
+                            <div className={` absolute -top-2.5 ${damagedOrgans.includes('reproductive system') ? 'block' : 'hidden'}`}>
                                 <Image
                                     src='/factor-icons/body/reproduct.png'
                                     alt='Reproduct'
@@ -314,7 +319,7 @@ const NonCarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCom
                                     height={336}
                                 />
                             </div>
-                            <div className={` absolute -top-2.5 ${diseases.includes('Cardio') ? 'block' : 'hidden'}`}>
+                            <div className={` absolute -top-2.5 ${damagedOrgans.includes('cardiovascular system') ? 'block' : 'hidden'}`}>
                                 <Image
                                     src='/factor-icons/body/cardio.png'
                                     alt='Cardio'
