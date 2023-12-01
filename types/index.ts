@@ -53,6 +53,14 @@ export interface CarcinogenicDataType {
     bw: string,
     at: string
 }
+export interface BodyType {
+    type: string
+    bw: number
+    tin: number
+    tout: number
+    vout: number
+    vin: number
+}
 export interface NonCarcinogenicDataType {
     c: string
     rfc: string

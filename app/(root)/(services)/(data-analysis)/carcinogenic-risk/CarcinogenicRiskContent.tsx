@@ -8,6 +8,7 @@ import { getCalculatedCarcinogenicRisk } from '@/actions/basic-actions/actions';
 import { CarcinogenicFactorsSchema } from '@/schemas';
 import { toast } from 'react-hot-toast';
 import { ZodIssue } from 'zod';
+import { bodyTypesArray, bodyTypesNamesArray } from './bodyTypesData';
 
 const exo = Exo({
     subsets: ['latin'],
@@ -31,8 +32,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
     const [selectedCompany, setSelectedCompany] = useState('');
     const [selectedPassport, setSelectedPassport] = useState('');
     const [selectedSubstance, setSelectedSubstance] = useState('');
-    const [selectedBodyWeight, setSelectedBodyWeight] = useState('');
-    const [selectedTimeOutside, setSelectedTimeOutside] = useState('');
+    const [selectedBodyType, setSelectedBodyType] = useState('');
 
     const [carcinogenicData, setCarcinogenicData] = useState<CarcinogenicDataType>({
         ca: '',
@@ -93,6 +93,21 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
 
     }, [selectedSubstance])
 
+    //sets default values depending on body type
+    useEffect(() => {
+        const bodyType = bodyTypesArray.find(bt => selectedBodyType == bt.type);
+        if (bodyType !== undefined) {
+            setCarcinogenicData({
+                ...carcinogenicData,
+                bw: String(bodyType.bw),
+                tin: String(bodyType.tin),
+                tout: String(bodyType.tout),
+                vout: String(bodyType.vout),
+                vin: String(bodyType.vin)
+            })
+        }
+    }, [selectedBodyType])
+
     const handleCarcinogenicFactorsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCarcinogenicData({
             ...carcinogenicData,
@@ -141,6 +156,22 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
             return !isNaN(numericValue) && numericValue > 0 && numericValue <= upperLimit;
         };
     };
+    const resetAllSelectedFields = () => {
+        setCarcinogenicData({
+            ca: '',
+            ch: '',
+            tout: '',
+            tin: '',
+            vout: '',
+            vin: '',
+            ef: '350',
+            ed: '30',
+            bw: '',
+            at: '70'
+        })
+        setSelectedCompany('')
+        setSelectedBodyType('')
+    }
 
 
 
@@ -149,7 +180,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
 
     return (
         <div className={`w-full flex flex-col gap-6 py-5 sm:py-12 px-4 sm:px-10`}>
-            <form>
+            <form action={clientGetCalculatedCarcinogenicRisk}>
                 <div className=' grid grid-rows-[repeat(auto-fill,minmax(210px,1fr))] grid-cols-[repeat(auto-fit,minmax(200px,1fr))]  gap-5'>
                     <>
                         <FactorBlock
@@ -312,20 +343,21 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                                         />
                                     </div>
                                     <div className=' flex flex-col md:flex-row items-center justify-between '>
-                                        <p className='ml-2 md:ml-0 self-start md:self-auto  sm:text-base md:text-sm  md:max-w-[83px]'>Body weight</p>
+                                        <p className='ml-2 md:ml-0 self-start md:self-auto  sm:text-base md:text-sm  md:max-w-[83px]'>Body type</p>
                                         <CustomDropdown
-                                            items={abobas}
-                                            selected={selectedBodyWeight}
-                                            setSelected={setSelectedBodyWeight}
+                                            items={bodyTypesNamesArray}
+                                            selected={selectedBodyType}
+                                            setSelected={setSelectedBodyType}
                                         />
                                     </div>
-                                    <div className=' flex flex-col md:flex-row items-center justify-between '>
-                                        <p className='ml-2 md:ml-0 self-start md:self-auto  sm:text-base md:text-sm md:max-w-[83px] '>Outside the building time </p>
-                                        <CustomDropdown
-                                            items={abobas}
-                                            selected={selectedTimeOutside}
-                                            setSelected={setSelectedTimeOutside}
-                                        />
+                                    <div className=' flex flex-auto justify-end'>
+                                        <button
+                                            className={` border-[2px] border-black px-6 py-2 text-xl rounded-[10px] hover:bg-slate-200 ${exo.className}`}
+                                            onClick={resetAllSelectedFields}
+                                            type='reset'
+                                        >
+                                            RESET
+                                        </button>
                                     </div>
                                 </div>
 
@@ -354,7 +386,7 @@ const CarcinogenicRiskContent = ({ pollutions, companyNames, passportsWithCompan
                                 <div className=' flex flex-auto items-end'>
                                     <button
                                         className={` border-[2px] border-black px-4 py-2 text-xl rounded-[10px] hover:bg-slate-200 ${exo.className}`}
-                                        formAction={clientGetCalculatedCarcinogenicRisk}
+                                        type='submit'
                                     >
                                         CALCULATE
                                     </button>
